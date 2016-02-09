@@ -1,38 +1,33 @@
 {
   "name": "another-proto-app",
-  "version": "0.0.0",
-  "description": "Another Proto App",
-  "main": "index.js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
   "scripts": {
-    "build": "webpack -p",
-    "start": "webpack-dev-server"
+    "start": "set MONGODB_PORT=27018 && nodemon app.js",
+    "test": "mocha test/**/*Spec.js"
   },
-  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://dnbard:james3it@github.com/dnbard/another-proto-app.git"
+  },
   "author": "",
-  "license": "AVID EULA",
-  "devDependencies": {
-    "babel-core": "^6.3.26",
-    "babel-loader": "^6.2.0",
-    "babel-plugin-syntax-class-properties": "^6.3.13",
-    "babel-plugin-syntax-decorators": "^6.3.13",
-    "babel-plugin-syntax-object-rest-spread": "^6.3.13",
-    "babel-plugin-transform-class-properties": "^6.3.13",
-    "babel-plugin-transform-decorators-legacy": "^1.3.4",
-    "babel-plugin-transform-object-rest-spread": "^6.3.13",
-    "babel-preset-es2015": "^6.3.13",
-    "babel-preset-react": "^6.3.13",
-    "babel-preset-react-hmre": "^1.0.1",
-    "css-loader": "^0.23.1",
-    "html-webpack-plugin": "^1.7.0",
-    "html-webpack-template": "^2.5.1",
-    "style-loader": "^0.13.0",
-    "webpack": "^1.12.9",
-    "webpack-dev-server": "^1.14.0",
-    "webpack-merge": "^0.7.0"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dnbard/another-proto-app/issues"
   },
+  "homepage": "https://github.com/dnbard/another-proto-app#readme",
   "dependencies": {
-    "react": "^0.14.5",
-    "react-dom": "^0.14.5",
-    "superagent": "^1.6.1"
+    "body-parser": "^1.14.2",
+    "express": "^4.13.4",
+    "joi": "^7.2.3",
+    "mongoose": "4.4.1",
+    "node-uuid": "^1.4.7"
+  },
+  "devDependencies": {
+    "assert": "^1.3.0",
+    "faker": "^3.0.1",
+    "mocha": "^2.4.5",
+    "superagent": "^1.7.2"
   }
 }
