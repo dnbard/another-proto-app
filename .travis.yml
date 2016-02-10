@@ -11,4 +11,3 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - g++-4.8
-script: node app.js
