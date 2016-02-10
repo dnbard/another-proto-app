@@ -12,7 +12,8 @@ setTimeout(function(){
 
     var testDirs = [
         './test/',
-        './test/api/'
+        './test/api/',
+        './test/static/'
     ];
 
     testDirs.forEach((testDir)=>{
