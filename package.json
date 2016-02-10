@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "set MONGODB_PORT=27018 && nodemon app.js",
-    "test": "mocha test/**/*Spec.js"
+    "test": "node tests.js"
   },
   "repository": {
     "type": "git",
