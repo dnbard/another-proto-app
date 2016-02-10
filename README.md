@@ -1,0 +1,1 @@
+![build status](https://api.travis-ci.org/dnbard/another-proto-app.svg?branch=master)
