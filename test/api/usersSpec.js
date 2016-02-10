@@ -13,6 +13,8 @@ describe('API - Users', function () {
                 }).end((err, data) => {
                     assert.equal(err, null);
                     assert.equal(data.status, 200);
+                    assert.equal(!!data.body.userId, true);
+                    assert.equal(!!data.body.tokenId, true);
 
                     done();
                 });
@@ -72,7 +74,7 @@ describe('API - Users', function () {
                     password: faker.internet.password()
                 }).end((err, data) => {
                     setTimeout(function(){
-                        var id = data.body._id;
+                        var id = data.body.userId;
 
                         request.get(`/users/${id}`).end((err, data)=>{
                             assert.equal(err, null);

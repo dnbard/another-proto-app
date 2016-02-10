@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "set MONGODB_PORT=27018 && nodemon app.js",
-    "test": "node tests.js"
+    "test": "node tests.js",
+    "test:once": "mocha test/**/*Spec.js"
   },
   "repository": {
     "type": "git",
@@ -18,6 +19,7 @@
   },
   "homepage": "https://github.com/dnbard/another-proto-app#readme",
   "dependencies": {
+    "async": "^1.5.2",
     "body-parser": "^1.14.2",
     "express": "^4.13.4",
     "joi": "^7.2.3",

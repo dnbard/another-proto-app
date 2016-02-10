@@ -1,5 +1,7 @@
 var User = require('../models/user');
+var Token = require('../models/token');
 var postUserSchema = require('../schemas/post-user');
+var async = require('async');
 
 exports.createUser = (req, res, next) => {
     postUserSchema.validate(req.body, (err, value)=>{
@@ -16,12 +18,36 @@ exports.createUser = (req, res, next) => {
             hash: '123'
         });
 
-        newUser.save((err, user) => {
+        var newToken = new Token({
+           userId: null
+        });
+
+        async.waterfall([
+            (cb) => {
+                newUser.save((err, user) => {
+                    cb(err, user);
+                });
+            },
+            (user, cb) => {
+                var newToken = new Token({
+                   userId: user._id
+                });
+                newToken.save((err, token) => {
+                    cb(err, {
+                        token: token,
+                        user: user
+                    });
+                });
+            }
+        ], (err, result) => {
             if (err){
                 return next(err);
             }
 
-            res.send(user);
+            res.send({
+                userId: result.user._id,
+                tokenId: result.token._id
+            });
         });
     });
 }
