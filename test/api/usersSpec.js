@@ -71,10 +71,11 @@ describe('API - Users', function () {
             request.post('/users')
                 .send({
                     email: faker.internet.email(),
-                    password: faker.internet.password()
+                    password: '123123123123'
                 }).end((err, data) => {
                     setTimeout(function(){
                         var id = data.body.userId;
+                        assert.equal(id !== undefined, true);
 
                         request.get(`/users/${id}`).end((err, data)=>{
                             assert.equal(err, null);
