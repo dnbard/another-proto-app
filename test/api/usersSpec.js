@@ -20,13 +20,13 @@ describe('API - Users', function () {
                 });
         });
 
-        it('should create a token', function(){
+        it('should create a token', function(done){
             request.post('/users')
                 .send({
                     email: faker.internet.email(),
                     password: 'qwerty123'
                 }).end((err, data) => {
-                    request(`/tokens/${data.body.tokenId}`)
+                    request.get(`/tokens/${data.body.tokenId}`)
                         .set('Authorization', `Bearer ${data.body.tokenId}`)
                         .end((err, data) => {
                             assert.equal(err, null);
