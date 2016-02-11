@@ -20,6 +20,22 @@ describe('API - Users', function () {
                 });
         });
 
+        it('should create a token', function(){
+            request.post('/users')
+                .send({
+                    email: faker.internet.email(),
+                    password: 'qwerty123'
+                }).end((err, data) => {
+                    request(`/tokens/${data.body.tokenId}`)
+                        .set('Authorization', `Bearer ${data.body.tokenId}`)
+                        .end((err, data) => {
+                            assert.equal(err, null);
+                            assert.equal(data.status, 200);
+                            done();
+                        });
+                });
+        });
+
         it('should return error on empty data', function(done){
             request.post('/users')
                 .send().end((err, data) => {
@@ -73,18 +89,16 @@ describe('API - Users', function () {
                     email: faker.internet.email(),
                     password: '123123123123'
                 }).end((err, data) => {
-                    setTimeout(function(){
-                        var id = data.body.userId;
-                        assert.equal(id !== undefined, true);
+                    var id = data.body.userId;
+                    assert.equal(id !== undefined, true);
 
-                        request.get(`/users/${id}`).end((err, data)=>{
-                            assert.equal(err, null);
-                            assert.equal(data.status, 200);
-                            assert.equal(data.body._id, id);
+                    request.get(`/users/${id}`).end((err, data)=>{
+                        assert.equal(err, null);
+                        assert.equal(data.status, 200);
+                        assert.equal(data.body._id, id);
 
-                            done();
-                        });
-                    }, 100);
+                        done();
+                    });
                 });
         });
     });
