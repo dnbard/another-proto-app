@@ -5,7 +5,7 @@ var schema = mongoose.Schema({
     _id: { type: String, default: uuid.v4, index: true },
     userId: { type: String, index: true },
     createdAt: { type: Date, default: Date.now },
-    updatedAt: { type: Date, default: Date.now },
+    updatedAt: { type: Date, default: Date.now, expires: 3600 },
     active: { type: Boolean, default: true }
 });
 

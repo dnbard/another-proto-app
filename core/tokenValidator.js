@@ -1,7 +1,7 @@
 var Tokens = require('../models/token');
 
-var TOKEN_INTERVAL = 60 * 1000 * 10;
-var TOKEN_HALF_INTERVAL = TOKEN_INTERVAL * 0.5;
+var TOKEN_INTERVAL = 60 * 1000 * 60;
+var TOKEN_HALF_INTERVAL = 60 * 1000 * 5;
 
 exports.default = (req, res, next) => {
     var tokenId = (req.get('Authorization') || '').replace('Bearer ', ''),
