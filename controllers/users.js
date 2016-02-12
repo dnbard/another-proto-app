@@ -11,7 +11,7 @@ exports.createUser = (req, res, next) => {
             return next({
                 status: 400,
                 name: 'Validation Error',
-                params: req.body
+                params: { body: req.body, err: err }
             });
         }
 
