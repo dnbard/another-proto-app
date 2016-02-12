@@ -2,7 +2,7 @@ var User = require('../models/user');
 var Token = require('../models/token');
 var postUserSchema = require('../schemas/post-user');
 var async = require('async');
-var AES = require('crypto-js/aes');
+var SHA256 = require('crypto-js/sha256');
 var uuid = require('node-uuid').v4;
 
 exports.createUser = (req, res, next) => {
@@ -16,16 +16,12 @@ exports.createUser = (req, res, next) => {
         }
 
         var hashSecret = uuid();
-        var hash = AES.encrypt(req.body.password, hashSecret);
+        var hash = SHA256(req.body.password + hashSecret);
 
         var newUser = new User({
             email: req.body.email,
             hash: hash,
             secret: hashSecret
-        });
-
-        var newToken = new Token({
-           userId: null
         });
 
         async.waterfall([
@@ -36,24 +32,17 @@ exports.createUser = (req, res, next) => {
             },
             (user, cb) => {
                 var newToken = new Token({
-                   userId: user._id
+                    userId: user._id
                 });
                 newToken.save((err, token) => {
                     cb(err, {
-                        token: token,
-                        user: user
+                        userId: user._id,
+                        tokenId: token._id
                     });
                 });
             }
         ], (err, result) => {
-            if (err){
-                return next(err);
-            }
-
-            res.send({
-                userId: result.user._id,
-                tokenId: result.token._id
-            });
+            return err ? next(err) : res.send(result);
         });
     });
 }

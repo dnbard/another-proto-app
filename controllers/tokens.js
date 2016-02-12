@@ -1,6 +1,4 @@
-var User = require('../models/user');
 var Token = require('../models/token');
-var postUserSchema = require('../schemas/post-user');
 var async = require('async');
 var TokenValidator = require('../core/tokenValidator');
 

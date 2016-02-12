@@ -1,6 +1,8 @@
 var bodyParser = require('body-parser');
 var usersController = require('./controllers/users');
 var tokensController = require('./controllers/tokens');
+var loginController = require('./controllers/login');
+
 var tokenValidator = require('./core/tokenValidator');
 var morgan = require('morgan');
 
@@ -13,6 +15,7 @@ exports.init = (app) => {
     }));
 
     app.post('/users', usersController.createUser);
+    app.post('/login', loginController.default);
 
     app.get('/users/:id', usersController.getUser);
 
