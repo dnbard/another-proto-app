@@ -17,7 +17,7 @@ exports.apply = function(cb){
     Setting.findOne({
         _id: 'migration-counter'
     }, (err, counter)=>{
-        var migrationNumber = parseInt(counter.value);
+        var migrationNumber = counter? parseInt(counter.value) : 0;
 
         async.series(
             migrations.filter(m => m.id > migrationNumber)
