@@ -39,6 +39,14 @@ exports.default = (req, res, next) => {
             });
         }
 
+        if (!token.active){
+            return next({
+                status: 401,
+                name: 'Auth inactive',
+                params: { tokenId: tokenId, active: token.active }
+            });
+        }
+
         if (lastUpdatedIn > TOKEN_HALF_INTERVAL){
             token.updatedAt = now.toString();
             token.save((err) => {
