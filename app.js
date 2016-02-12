@@ -1,6 +1,7 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var config = require('./config');
+var migrations = require('./migrations');
 
 var app = express();
 var port = process.env.PORT || 3000;
@@ -13,11 +14,13 @@ mongoose.connection.once('open', function() {
 
     require('./models').init();
 
-    app.use(express.static('public'));
+    migrations.apply((err) => {
+        app.use(express.static('public'));
 
-    app.listen(port, function () {
-        console.log(`Application listening on port ${port}!`);
+        app.listen(port, function () {
+            console.log(`Application listening on port ${port}!`);
+        });
+
+        require('./routing').init(app);
     });
-
-    require('./routing').init(app);
 });
