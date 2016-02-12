@@ -101,5 +101,25 @@ describe('API - Users', function () {
                     });
                 });
         });
+
+        it('should not return sensible information', function(done){
+            request.post('/users')
+                .send({
+                    email: faker.internet.email(),
+                    password: '123123123123'
+                }).end((err, data) => {
+                    var id = data.body.userId;
+                    assert.equal(id !== undefined, true);
+
+                    request.get(`/users/${id}`).end((err, data)=>{
+                        assert.equal(err, null);
+                        assert.equal(data.status, 200);
+                        assert.equal(data.body.hash, undefined);
+                        assert.equal(data.body.secret, undefined);
+
+                        done();
+                    });
+                });
+        });
     });
 });

@@ -2,6 +2,8 @@ var User = require('../models/user');
 var Token = require('../models/token');
 var postUserSchema = require('../schemas/post-user');
 var async = require('async');
+var AES = require('crypto-js/aes');
+var uuid = require('node-uuid').v4;
 
 exports.createUser = (req, res, next) => {
     postUserSchema.validate(req.body, (err, value)=>{
@@ -13,9 +15,13 @@ exports.createUser = (req, res, next) => {
             });
         }
 
+        var hashSecret = uuid();
+        var hash = AES.encrypt(req.body.password, hashSecret);
+
         var newUser = new User({
             email: req.body.email,
-            hash: '123'
+            hash: hash,
+            secret: hashSecret
         });
 
         var newToken = new Token({
@@ -59,7 +65,8 @@ exports.getUser = (req, res, next) => {
         _id: id
     }, {
         hash: false,
-        __v: false
+        __v: false,
+        secret: false
     }, (err, user)=>{
         if (err){
             return next(err);

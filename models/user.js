@@ -4,7 +4,8 @@ var uuid = require('node-uuid');
 var schema = mongoose.Schema({
     _id: { type: String, default: uuid.v4, index: true },
     email: { type: String, index: true },
-    hash: String
+    hash: String,
+    secret: String
 });
 
 var model = mongoose.model('User', schema);
